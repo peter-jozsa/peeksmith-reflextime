@@ -10,9 +10,13 @@
 
   <body>
     <button id="connectBtn">Connect</button>
-    <button id="startBtn" disabled="disabled">START</button>
-    <button id="easy" disabled="disabled">Easy</button>
-    <button id="hard" disabled="disabled">Hard</button>
+    <button id="startBtn" disabled="disabled">START</button><br />
+    <input type="radio" id="easy" name="advanced" value="easy" checked />
+    <label for="easy">EASY</label><br />
+    <input type="radio" id="hard" name="advanced" value="hard" />
+    <label for="hard">HARD</label><br />
+    <input type="radio" id="hard" name="advanced" value="extreme" />
+    <label for="extreme">EXTREME</label><br />
 
     <div id="result"></div>
     <script src="vendor/devices.js"></script>

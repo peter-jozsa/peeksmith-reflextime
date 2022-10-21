@@ -13,6 +13,18 @@ const BUTTON_STATES = {
   RELEASE: "release",
 };
 
+const TYPE = {
+  EASY: "easy",
+  HARD: "hard",
+  EXTREME: "extreme",
+};
+
+const INTERVAL = {
+  [TYPE.EASY]: 3000,
+  [TYPE.HARD]: 1000,
+  [TYPE.EXTREME]: 200,
+};
+
 const BUTTON_SEPARATE_CHAR = ",";
 
 const getButton = (incomingBtnState) => {
@@ -21,9 +33,11 @@ const getButton = (incomingBtnState) => {
 };
 
 class ReflexTimeGame {
-  constructor(display, { rounds = 5 } = {}) {
+  constructor(display, { rounds = 5, type = TYPE.EASY } = {}) {
     this.display = display;
     this.maxRounds = rounds;
+    this.gameType = type;
+
     this.reactionTimesMs = [];
     this._onPressedButton = null;
 
@@ -92,7 +106,7 @@ class ReflexTimeGame {
     await this.countdown();
     for (let i = 0; i < this.maxRounds; i++) {
       this.display.displayText("");
-      await this.sleep(2000);
+      await this.sleep(INTERVAL[this.gameType]);
       const { tookMs, matched } = await this.measureReactionTime();
 
       if (matched) {
@@ -100,7 +114,7 @@ class ReflexTimeGame {
         this.display.displayText(
           `CORRECT\n${tookMs}ms\n${roundsLeft} rounds left`
         );
-        await this.sleep(3000);
+        await this.sleep(INTERVAL[this.gameType]);
         this.reactionTimesMs.push(tookMs);
       } else {
         return null;

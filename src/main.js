@@ -13,8 +13,17 @@ connectBtn.addEventListener("click", () => {
   display.connect();
 });
 
+const checkedButton = () => {
+  return Array.from(document.getElementsByName("advanced")).find(
+    (a) => a.checked
+  ).value;
+};
 startBtn.addEventListener("click", () => {
-  const game = new ReflexTimeGame(display, { rounds: 2 });
+  const gameType = checkedButton();
+  const game = new ReflexTimeGame(display, {
+    rounds: 5,
+    type: gameType,
+  });
 
   game.start().then((result) => {
     if (result) {
