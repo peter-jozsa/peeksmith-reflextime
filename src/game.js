@@ -41,7 +41,7 @@ class ReflexTimeGame {
     } else {
       this.display.displayText("RIGHT");
     }
-    display.send("/VL211\n~....\n");
+    display.send("/VL211\n~.\n");
   }
 
   async waitForButtonPress() {
@@ -71,15 +71,18 @@ class ReflexTimeGame {
   async countdown(from = 3) {
     for (let current = from; current>0; current--) {
       this.display.displayText(`${current}`)
+      this.display.send("/VL211\n~.\n");
       await sleep(1000)
     }
+    this.display.send("/VL211\n~-\n");
   }
 
   async start() {
+    await sleep(500)
     await this.countdown()
     for (let i=0; i<this.maxRounds; i++) {
       this.display.displayText('')
-      await sleep(2000);
+      await sleep(INTERVAL[this.gameType]);
       const { tookMs, matched } = await this.measureReactionTime()
       
       if (matched) {
@@ -89,7 +92,7 @@ class ReflexTimeGame {
           message += `\n${roundsLeft} rounds left`
         }
         this.display.displayText(message)
-        await sleep(INTERVAL[this.gameType]);
+        await sleep(2000);
         this.reactionTimesMs.push(tookMs)
       } else {
         return null;
