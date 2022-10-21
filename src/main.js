@@ -1,3 +1,20 @@
+const BUTTON = {
+  isb1: "LEFT",
+  isb2: "RIGHT",
+};
+
+const BUTTON_STATES = {
+  PRESS: "press",
+  RELEASE: "release",
+};
+
+const BUTTON_SEPARATE_CHAR = ",";
+
+const getButton = (incomingBtnState) => {
+  const [button, state] = incomingBtnState.split(BUTTON_SEPARATE_CHAR);
+  return { side: BUTTON[button], state };
+};
+
 const connectBtn = document.getElementById("connectBtn");
 const setText = (el, text) => {
   el.innerText = text;
@@ -17,3 +34,9 @@ display.onDisconnect(() => {
   setText(connectBtn, "Connect");
 });
 
+display.onMessage((message) => {
+  const { side, state } = getButton(message);
+  if (state === BUTTON_STATES.PRESS) {
+    console.log(side);
+  }
+});
