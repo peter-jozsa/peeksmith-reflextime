@@ -4,5 +4,11 @@
   "main": "index.js",
   "repository": "git@github.com:peter-jozsa/peeksmith-reflextime.git",
   "author": "Péter Józsa <peter.jozsa@icloud.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "dev": "ws --directory src --spa index.html"
+  },
+  "dependencies": {
+    "local-web-server": "^5.2.1"
+  }
 }
