@@ -82,14 +82,23 @@ class ReflexTimeGame {
     return new Promise((resolve) => setTimeout(resolve, ms))
   }
 
+  async countdown(from = 3) {
+    for (let current = from; current>0; current--) {
+      this.display.displayText(`${current}`)
+      await this.sleep(1000)
+    }
+  }
+
   async start() {
+    await this.countdown()
     for (let i=0; i<this.maxRounds; i++) {
       this.display.displayText('')
       await this.sleep(2000);
       const { tookMs, matched } = await this.measureReactionTime()
       
       if (matched) {
-        this.display.displayText('CORRECT')
+        const roundsLeft = this.maxRounds - i - 1;
+        this.display.displayText(`CORRECT\n${tookMs}ms\n${roundsLeft} rounds left`)
         await this.sleep(3000);
         this.reactionTimesMs.push(tookMs)
       } else {
