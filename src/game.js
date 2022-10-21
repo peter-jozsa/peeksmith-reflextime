@@ -1,18 +1,3 @@
-const BUTTONS = {
-  LEFT_BUTTON: "LEFT_BUTTON",
-  RIGHT_BUTTON: "RIGHT_BUTTON",
-};
-
-const BUTTON = {
-  isb1: BUTTONS.LEFT_BUTTON,
-  isb2: BUTTONS.RIGHT_BUTTON,
-};
-
-const BUTTON_STATES = {
-  PRESS: "press",
-  RELEASE: "release",
-};
-
 const TYPE = {
   EASY: "easy",
   HARD: "hard",
@@ -24,14 +9,6 @@ const INTERVAL = {
   [TYPE.HARD]: 1000,
   [TYPE.EXTREME]: 200,
 };
-
-const BUTTON_SEPARATE_CHAR = ",";
-
-const getButton = (incomingBtnState) => {
-  const [button, state] = incomingBtnState.split(BUTTON_SEPARATE_CHAR);
-  return { side: BUTTON[button], state };
-};
-
 class ReflexTimeGame {
   constructor(display, { rounds = 5, type = TYPE.EASY } = {}) {
     this.display = display;
@@ -91,31 +68,29 @@ class ReflexTimeGame {
     return { tookMs, matched };
   }
 
-  sleep(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
-
   async countdown(from = 3) {
-    for (let current = from; current > 0; current--) {
-      this.display.displayText(`${current}`);
-      await this.sleep(1000);
+    for (let current = from; current>0; current--) {
+      this.display.displayText(`${current}`)
+      await sleep(1000)
     }
   }
 
   async start() {
-    await this.countdown();
-    for (let i = 0; i < this.maxRounds; i++) {
-      this.display.displayText("");
-      await this.sleep(INTERVAL[this.gameType]);
-      const { tookMs, matched } = await this.measureReactionTime();
-
+    await this.countdown()
+    for (let i=0; i<this.maxRounds; i++) {
+      this.display.displayText('')
+      await sleep(2000);
+      const { tookMs, matched } = await this.measureReactionTime()
+      
       if (matched) {
         const roundsLeft = this.maxRounds - i - 1;
-        this.display.displayText(
-          `CORRECT\n${tookMs}ms\n${roundsLeft} rounds left`
-        );
-        await this.sleep(INTERVAL[this.gameType]);
-        this.reactionTimesMs.push(tookMs);
+        let message = `CORRECT\n${tookMs}ms\n`
+        if (roundsLeft > 0) {
+          message += `\n${roundsLeft} rounds left`
+        }
+        this.display.displayText(message)
+        await sleep(INTERVAL[this.gameType]);
+        this.reactionTimesMs.push(tookMs)
       } else {
         return null;
       }

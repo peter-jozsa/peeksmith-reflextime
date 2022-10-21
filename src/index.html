@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>PeekSmith reflex</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-  </head>
 
-  <body>
-    <button id="connectBtn">Connect</button>
-    <button id="startBtn" disabled="disabled">START</button><br />
-    <input type="radio" id="easy" name="advanced" value="easy" checked />
-    <label for="easy">EASY</label><br />
-    <input type="radio" id="hard" name="advanced" value="hard" />
-    <label for="hard">HARD</label><br />
-    <input type="radio" id="hard" name="advanced" value="extreme" />
-    <label for="extreme">EXTREME</label><br />
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>PeekSmith reflex</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
 
-    <div id="result"></div>
-    <script src="vendor/devices.js"></script>
-    <script src="./game.js"></script>
-    <script src="./main.js"></script>
-  </body>
+<body>
+  <button id="connectBtn">Connect</button>
+  <input type="radio" id="easy" name="advanced" value="easy" checked />
+  <label for="easy">EASY</label><br />
+  <input type="radio" id="hard" name="advanced" value="hard" />
+  <label for="hard">HARD</label><br />
+  <input type="radio" id="hard" name="advanced" value="extreme" />
+  <label for="extreme">EXTREME</label><br />
+  <div id="result"></div>
+  <script src="vendor/devices.js"></script>
+  <script src="./display.js"></script>
+  <script src="./game.js"></script>
+  <script src="./main.js"></script>
+</body>
+
 </html>
