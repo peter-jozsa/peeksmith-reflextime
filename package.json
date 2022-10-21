@@ -1,0 +1,8 @@
+{
+  "name": "peeksmith-reflextime",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:peter-jozsa/peeksmith-reflextime.git",
+  "author": "Péter Józsa <peter.jozsa@icloud.com>",
+  "license": "MIT"
+}

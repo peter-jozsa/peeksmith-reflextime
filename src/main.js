@@ -1,0 +1,2 @@
+const display = new PeekSmithDevice();
+
